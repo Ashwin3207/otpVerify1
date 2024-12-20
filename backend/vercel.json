@@ -1,0 +1,25 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "server.js", 
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/server.js"  
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/client/$1" 
+      }
+    ],
+    "env": {
+      "PORT": "8000",
+      "ATLASDB_URL": "mongodb+srv://kumarnitish27212:NuwTj9T1Mgx1zB8I@cluster0.rgjiy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      "OTP_SENDER_KEY": "iw5Y3hplQroMGgz0uPK7k26xbaFnjDfWtR4OqcABITLUmeHCXNZ3Wy471fwPLeRgHOpbvUk6l5AxGEru"
+    }
+  }
+  
