@@ -2,62 +2,45 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
+import userRoutes from "./routes/userRoutes.js";
 import mongoose from "mongoose";
-import userRoutes from "./routes/userRoutes.js"; // Ensure this file exists and is correctly implemented
 
 dotenv.config();
 
 const app = express();
 
-// Set up the database URL from the environment variable
+// Set up the database URL from environment variable
 const dbUrl = process.env.ATLASDB_URL;
 
 // Connect to the database
-async function main() {
-  try {
-    await mongoose.connect(dbUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+main()
+  .then(() => {
     console.log("Connected to database");
-  } catch (err) {
-    console.error("Database connection error:", err);
-    process.exit(1); // Exit process with failure
-  }
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+async function main() {
+  await mongoose.connect(dbUrl);
 }
 
-main();
+
 
 // Middleware
 app.use(cors({
-  origin: 'https://otp-verify1.vercel.app', // Allow your frontend origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-  credentials: true, // Enable credentials (cookies or headers)
+    origin: 'https://otp-verify1.vercel.app', // Specify allowed origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+    credentials: true // If you're using cookies
 }));
-app.options('*', cors()); // Handle preflight requests
+app.options('*', cors());
 
-app.use(bodyParser.json()); // Parse incoming JSON payloads
-
-// Debugging middleware to log incoming requests
-app.use((req, res, next) => {
-  console.log('Request Origin:', req.headers.origin);
-  console.log('Request Method:', req.method);
-  console.log('Request Path:', req.path);
-  console.log('Request Headers:', req.headers);
-  next();
-});
-
-// Routes
-app.use("/api/users", userRoutes); // Ensure userRoutes is properly set up
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'Internal Server Error' });
-});
+app.use(bodyParser.json());
+app.use("/api/users", userRoutes); // Your user routes for login and OTP
 
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
+
   console.log(`Server running on port ${PORT}`);
 });
