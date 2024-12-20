@@ -28,7 +28,11 @@ async function main() {
 
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://otp-verify1.vercel.app', // Specify allowed origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  credentials: true // If you're using cookies
+}));
 app.use(bodyParser.json());
 app.use("/api/users", userRoutes); // Your user routes for login and OTP
 
