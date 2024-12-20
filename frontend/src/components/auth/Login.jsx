@@ -16,7 +16,7 @@ const Login = ({ setPhone, setIsOtpSent }) => {
     try {
       // Make POST request to send OTP
       await axios.post(
-        "https://breadandbetter-7e5i.vercel.app/api/users/login",
+        "https://otp-verify1-83s8.vercel.app/api/users/login",
         { phone },
         { withCredentials: true } // Ensure cookies are included (if needed)
       );

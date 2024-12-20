@@ -86,7 +86,7 @@ const VerifyOtp = ({ phone }) => {
   const verifyOtp = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post("https://breadandbetter-7e5i.vercel.app/api/users/verify", {
+      const response = await axios.post("https://otp-verify1-83s8.vercel.app/api/users/verify", {
         phone,
         otp,
       });
