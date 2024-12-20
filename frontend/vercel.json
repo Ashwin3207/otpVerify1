@@ -2,21 +2,21 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.js",  
+      "src": "server.js",  
       "use": "@vercel/node"
     },
     {
       "src": "client/package.json",  
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"  
+        "distDir": "build" 
       }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/index.js"  
+      "dest": "/server.js" 
     },
     {
       "src": "/(.*)",
@@ -27,10 +27,5 @@
     "PORT": "8000",
     "ATLASDB_URL": "mongodb+srv://kumarnitish27212:NuwTj9T1Mgx1zB8I@cluster0.rgjiy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     "OTP_SENDER_KEY": "iw5Y3hplQroMGgz0uPK7k26xbaFnjDfWtR4OqcABITLUmeHCXNZ3Wy471fwPLeRgHOpbvUk6l5AxGEru"
-  },
-  "cors": {
-    "origin": "*",  
-    "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    "credentials": true
   }
 }
