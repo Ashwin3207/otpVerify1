@@ -28,11 +28,14 @@ async function main() {
 
 
 // Middleware
-app.use(cors({
-    origin: 'https://otp-verify1.vercel.app', // Specify allowed origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    credentials: true // If you're using cookies
-}));
+app.use(
+  cors({
+    origin: '*', // Allow all origins (for testing purposes)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS method for preflight requests
+    credentials: true, // Allow credentials (cookies)
+  })
+);
+
 app.options('*', cors());
 
 app.use(bodyParser.json());
