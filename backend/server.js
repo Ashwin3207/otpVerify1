@@ -30,13 +30,15 @@ async function main() {
 // Middleware
 app.use(
   cors({
-    origin: '*', // Allow all origins (for testing purposes)
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS method for preflight requests
+    origin: "https://otp-verify1.vercel.app", // Specify your frontend's Vercel domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS method
     credentials: true, // Allow credentials (cookies)
+    allowedHeaders: ['Content-Type', 'Authorization'] // Explicitly allow headers
   })
 );
 
-app.options('*', cors());
+app.options('*', cors()); // Ensure OPTIONS method is handled
+
 
 app.use(bodyParser.json());
 app.use("/api/users", userRoutes); // Your user routes for login and OTP
